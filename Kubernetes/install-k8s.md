@@ -55,7 +55,7 @@ EOF
 ```
 ##### Install Kubernetes components
 ```
-yum install -y kubeadm-1.18.5-0 kubelet-1.18.5-0 kubectl-1.18.5-0
+yum install -y kubeadm kubelet kubectl
 ```
 ##### Enable and Start kubelet service
 ```
@@ -64,12 +64,18 @@ systemctl enable --now kubelet
 ## On kmaster
 ##### Initialize Kubernetes Cluster
 ```
-kubeadm init --apiserver-advertise-address=172.16.16.100 --pod-network-cidr=192.168.0.0/16
+kubeadm init --apiserver-advertise-address=<<Private-IP>> --pod-network-cidr=192.168.0.0/16
 ```
 ##### Deploy Calico network
 ```
 kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
 ```
+
+##### Deploy Flannel network -- CIDR 10.244.0.0/16
+```
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+```
+
 ##### Cluster join command
 ```
 kubeadm token create --print-join-command
