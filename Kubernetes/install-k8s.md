@@ -64,7 +64,7 @@ systemctl enable --now kubelet
 ## On kmaster
 ##### Initialize Kubernetes Cluster
 ```
-kubeadm init --apiserver-advertise-address=<<Private-IP>> --pod-network-cidr=192.168.0.0/16
+kubeadm init --apiserver-advertise-address=<<Private-IP>> --pod-network-cidr=192.168.0.0/16 --ignore-preflight-errors=Mem,NumCPU
 ```
 ##### Deploy Calico network
 ```
